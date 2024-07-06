@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import classNames from 'classnames';
-import { IFilters } from '../../types/types';
-import { filtersChanged, fetchFilters } from './filtersSlice';
+
+import { filtersChanged, fetchFilters, selectAll } from './filtersSlice';
+import store from '../../store';
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
-  const filters = useAppSelector((state) => state.filters.filters);
+  const filters = selectAll(store.getState());
+  console.log(filters);
+
   const activeFilter = useAppSelector((state) => state.filters.activeFilter);
   const filtersLoadingStatus = useAppSelector(
     (state) => state.filters.filtersLoadingStatus
@@ -25,7 +28,7 @@ const HeroesFilters = () => {
     return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
   }
 
-  const renderFilters = (arr: IFilters[]) => {
+  const renderFilters = (arr: any[]) => {
     if (arr?.length === 0) {
       return <h5 className="text-center mt-5">Фильтры не найдены</h5>;
     }

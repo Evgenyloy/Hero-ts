@@ -1,9 +1,12 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useCallback, useEffect } from 'react';
 
-import { heroDeleted, fetchHeroes } from '../heroesList/heroesSlice';
+import {
+  heroDeleted,
+  fetchHeroes,
+  filteredHeroesSelector,
+} from '../heroesList/heroesSlice';
 
-import { createSelector } from '@reduxjs/toolkit';
 import HeroesListItem from '../heroesListItem/HeroesListItem';
 import Spinner from '../spinner/Spinner';
 import { IHeroes } from '../../types/types';
@@ -11,18 +14,6 @@ import { IHeroes } from '../../types/types';
 import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 
 const HeroesList = () => {
-  const filteredHeroesSelector = createSelector(
-    (state: any) => state.filters.activeFilter,
-    (state: any) => state.heroes.heroes,
-    (filter: string, heroes: IHeroes[]) => {
-      if (filter === 'all') {
-        return heroes;
-      } else {
-        return heroes.filter((item) => item.element === filter);
-      }
-    }
-  );
-
   const filteredHeroes = useAppSelector(filteredHeroesSelector);
   const heroesLoadingStatus = useAppSelector(
     (state) => state.heroes.heroesLoadingStatus

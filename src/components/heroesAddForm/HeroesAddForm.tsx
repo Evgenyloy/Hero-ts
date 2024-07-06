@@ -1,17 +1,19 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppSelector, useAppDispatch } from '../../hooks/hook';
+import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { heroCreated } from '../heroesList/heroesSlice';
-import { IFilters } from '../../types/types';
 import { IHeroes } from '../../types/types';
+import { selectAll } from '../heroesFilters/filtersSlice';
+import store from '../../store';
 
 const HeroesAddForm = () => {
+  // Состояния для контроля формы
   const [heroName, setHeroName] = useState('');
   const [heroDescr, setHeroDescr] = useState('');
   const [heroElement, setHeroElement] = useState('');
 
-  const filters = useAppSelector((state) => state.filters.filters);
+  const filters = selectAll(store.getState());
   const filtersLoadingStatus = useAppSelector(
     (state) => state.filters.filtersLoadingStatus
   );
@@ -38,7 +40,7 @@ const HeroesAddForm = () => {
     setHeroElement('');
   };
 
-  const renderFilters = (filters: IFilters[], status: string) => {
+  const renderFilters = (filters: any[], status: string) => {
     if (status === 'loading') {
       return <option>Загрузка элементов</option>;
     } else if (status === 'error') {
@@ -47,7 +49,6 @@ const HeroesAddForm = () => {
 
     if (filters && filters.length > 0) {
       return filters.map(({ name, label }) => {
-        // eslint-disable-next-line
         if (name === 'all') return;
 
         return (

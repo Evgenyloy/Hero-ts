@@ -1,10 +1,8 @@
-import { useHttp } from '../../hooks/http.hook';
 import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks/hook';
+import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import classNames from 'classnames';
 import { IFilters } from '../../types/types';
-import { fetchFilters } from '../../actions';
-import { filtersChanged } from './filtersSlice';
+import { filtersChanged, fetchFilters } from './filtersSlice';
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
@@ -15,11 +13,9 @@ const HeroesFilters = () => {
   );
 
   const dispatch = useAppDispatch();
-  const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(fetchFilters(request));
-
+    dispatch(fetchFilters());
     // eslint-disable-next-line
   }, []);
 

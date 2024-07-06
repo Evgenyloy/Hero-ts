@@ -1,3 +1,5 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+
 export interface IHeroes {
   id: string;
   name: string;
@@ -17,7 +19,7 @@ const initialState: IInitialHeroState = {
 
 const heroes = (
   state = initialState,
-  action: { type: string; payload?: any }
+  action: PayloadAction<IHeroes[] | string>
 ) => {
   switch (action.type) {
     case 'HEROES_FETCHING':

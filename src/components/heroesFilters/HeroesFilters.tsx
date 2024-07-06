@@ -1,9 +1,10 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../types/types';
+import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 import classNames from 'classnames';
-import { IFilters } from '../../reducers/filters';
-import { fetchFilters, activeFilterChanged } from '../../actions';
+import { IFilters } from '../../types/types';
+import { fetchFilters } from '../../actions';
+import { filtersChanged } from './filtersSlice';
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
@@ -43,7 +44,7 @@ const HeroesFilters = () => {
           key={name}
           id={name}
           className={btnClass}
-          onClick={() => dispatch(activeFilterChanged(name))}
+          onClick={() => dispatch(filtersChanged(name))}
         >
           {label}
         </button>

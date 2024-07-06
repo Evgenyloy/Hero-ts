@@ -1,3 +1,5 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+
 export interface IInitialFilterState {
   filters: IFilters[];
   filtersLoadingStatus: string;
@@ -14,10 +16,7 @@ const initialState: IInitialFilterState = {
   activeFilter: 'all',
 };
 
-const filters = (
-  state = initialState,
-  action: { type: string; payload?: any }
-) => {
+const filters = (state = initialState, action: PayloadAction<string>) => {
   switch (action.type) {
     case 'FILTERS_FETCHING':
       return {

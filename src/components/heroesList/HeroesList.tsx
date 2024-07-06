@@ -1,13 +1,14 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useCallback, useEffect } from 'react';
 
-import { fetchHeroes, heroDeleted } from '../../actions';
+import { heroDeleted } from '../heroesList/heroesSlice';
+import { fetchHeroes } from '../../actions';
 import { createSelector } from 'reselect';
 import HeroesListItem from '../heroesListItem/HeroesListItem';
 import Spinner from '../spinner/Spinner';
-import { IHeroes } from '../../reducers/heroes';
+import { IHeroes } from '../../types/types';
 
-import { useAppSelector, useAppDispatch } from '../../types/types';
+import { useAppSelector, useAppDispatch } from '../../hooks/hook';
 
 const HeroesList = () => {
   const filteredHeroesSelector = createSelector(

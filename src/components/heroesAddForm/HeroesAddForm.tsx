@@ -1,10 +1,10 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppDispatch, useAppSelector } from '../../types/types';
-import { heroCreated } from '../../actions';
-import { IFilters } from '../../reducers/filters';
-import { IHeroes } from '../../reducers/heroes';
+import { useAppSelector, useAppDispatch } from '../../hooks/hook';
+import { heroCreated } from '../heroesList/heroesSlice';
+import { IFilters } from '../../types/types';
+import { IHeroes } from '../../types/types';
 
 const HeroesAddForm = () => {
   const [heroName, setHeroName] = useState('');

@@ -8,23 +8,20 @@ import { useHttp } from '../../hooks/http.hook';
 import { RootState } from '../../store';
 import { IFilters } from '../../types/types';
 
-export interface IInitialFiltersState {
-  filtersLoadingStatus: string;
-  activeFilter: string;
-  id: number;
-}
-
-const filterAdapter = createEntityAdapter<IInitialFiltersState>();
+const filterAdapter = createEntityAdapter<IFilters>();
 
 const initialState = filterAdapter.getInitialState({
   filtersLoadingStatus: 'idle',
   activeFilter: 'all',
 });
 
-export const fetchFilters = createAsyncThunk('filters/fetchFilters', () => {
-  const { request } = useHttp();
-  return request('http://localhost:3001/filters');
-});
+export const fetchFilters = createAsyncThunk<IFilters[]>(
+  'filters/fetchFilters',
+  () => {
+    const { request } = useHttp();
+    return request('http://localhost:3001/filters');
+  }
+);
 
 const filtersSlice = createSlice({
   name: 'filters',
@@ -41,7 +38,7 @@ const filtersSlice = createSlice({
       })
       .addCase(
         fetchFilters.fulfilled,
-        (state, action: PayloadAction<IInitialFiltersState[]>) => {
+        (state, action: PayloadAction<IFilters[]>) => {
           state.filtersLoadingStatus = 'idle';
           filterAdapter.setAll(state, action.payload);
         }

@@ -1,15 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { IHeroes } from '../types/types';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001' }),
   tagTypes: ['Heroes'],
   endpoints: (builder) => ({
-    getHeroes: builder.query({
+    getHeroes: builder.query<IHeroes[], void>({
       query: () => '/heroes',
       providesTags: ['Heroes'],
     }),
-    createHero: builder.mutation({
+    createHero: builder.mutation<IHeroes[], IHeroes>({
       query: (hero) => ({
         url: '/heroes',
         method: 'POST',
@@ -17,7 +18,7 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ['Heroes'],
     }),
-    deleteHero: builder.mutation({
+    deleteHero: builder.mutation<IHeroes[], string>({
       query: (id) => ({
         url: `/heroes/${id}`,
         method: 'DELETE',

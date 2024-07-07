@@ -1,14 +1,12 @@
-import { useHttp } from '../../hooks/http.hook';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppDispatch, useAppSelector } from '../../hooks/hook';
+import { useAppSelector } from '../../hooks/hook';
 import { IHeroes } from '../../types/types';
 import { selectAll } from '../heroesFilters/filtersSlice';
 import store from '../../store';
 import { useCreateHeroMutation } from '../../api/apiSlice';
 
 const HeroesAddForm = () => {
-  // Состояния для контроля формы
   const [heroName, setHeroName] = useState('');
   const [heroDescr, setHeroDescr] = useState('');
   const [heroElement, setHeroElement] = useState('');

@@ -6,7 +6,7 @@ import { IHeroes } from '../../types/types';
 import { useAppSelector } from '../../hooks/hook';
 
 const HeroesList = () => {
-  const { data: heroes = [], isLoading, isError } = useGetHeroesQuery({});
+  const { data: heroes = [], isLoading, isError } = useGetHeroesQuery();
 
   const [deleteHero] = useDeleteHeroMutation();
 

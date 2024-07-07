@@ -8,7 +8,6 @@ import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
   const filters = selectAll(store.getState());
-  console.log(filters);
 
   const activeFilter = useAppSelector((state) => state.filters.activeFilter);
   const filtersLoadingStatus = useAppSelector(

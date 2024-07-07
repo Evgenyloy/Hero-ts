@@ -2,23 +2,22 @@ import { useHttp } from '../../hooks/http.hook';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
-import { heroCreated } from '../heroesList/heroesSlice';
 import { IHeroes } from '../../types/types';
 import { selectAll } from '../heroesFilters/filtersSlice';
 import store from '../../store';
+import { useCreateHeroMutation } from '../../api/apiSlice';
 
 const HeroesAddForm = () => {
   // Состояния для контроля формы
   const [heroName, setHeroName] = useState('');
   const [heroDescr, setHeroDescr] = useState('');
   const [heroElement, setHeroElement] = useState('');
+  const [createHero] = useCreateHeroMutation();
 
   const filters = selectAll(store.getState());
   const filtersLoadingStatus = useAppSelector(
     (state) => state.filters.filtersLoadingStatus
   );
-  const dispatch = useAppDispatch();
-  const { request } = useHttp();
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,11 +28,7 @@ const HeroesAddForm = () => {
       description: heroDescr,
       element: heroElement,
     };
-
-    request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
-      .then((res) => console.log(res, 'Отправка успешна'))
-      .then((data) => dispatch(heroCreated(newHero)))
-      .catch((err) => console.log(err));
+    createHero(newHero).unwrap();
 
     setHeroName('');
     setHeroDescr('');

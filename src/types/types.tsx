@@ -17,5 +17,8 @@ export interface IInitialFilterState {
 }
 
 export interface IFilters {
-  [key: string]: string;
+  name: string;
+  label: string;
+  className: string;
+  id: string;
 }
